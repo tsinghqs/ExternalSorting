@@ -5,7 +5,7 @@ import student.TestCase;
  * @version 2019
  */
 public class HeapTest extends TestCase {
-    byte[] check = new byte[10];
+    byte[] check = new byte[20];
     /**
      * @field Heap the test heap
      */
@@ -29,14 +29,19 @@ public class HeapTest extends TestCase {
      */
     public void testNewRun()
     {
-        for(int i = 0; i < 9; i++)
+        for(int i = 0; i < 8; i++)
         {
             check[i] = (byte)i;
         }
         testHeap = new Heap(check);
         Record top_rec = new Record(check);
+        Record bottom_rec = new Record(check);
+        testHeap.push(bottom_rec);
+        testHeap.push(top_rec);
         Record topcheck = testHeap.top();
-        assertEquals(null, topcheck);
+        assertEquals(testHeap.top(), topcheck);
+        testHeap.delete();
+        testHeap.bubbleDown();
     }
     
     /**
