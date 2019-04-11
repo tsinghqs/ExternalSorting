@@ -101,12 +101,12 @@ public class Externalsort {
         RunList run_list = heap.getRunList();
         
         // Print record count
-        // System.out.println("Record Count: " + count);
+        //System.out.println("Record Count: " + count);
         
         // Print data for each run
-        //for (Run r : run_list) {
-            // System.out.println(r.getOffset() + ": " + r.getCount());
-        //}
+        for (Run r : run_list) {
+             System.out.println(r.getOffset() + ": " + r.getCount());
+        }
         
         // Setup in/out for the merge; run_files[0] is the input to start with
         String in_file = run_files[0];

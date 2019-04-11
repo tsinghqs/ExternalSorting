@@ -46,7 +46,7 @@ public class Heap {
      * Changed to public for easier testing
      * method to get a new run
      */
-    public void newRun() {
+    private void newRun() {
         run = new Run();
         run_list.add(run);
     }
@@ -62,7 +62,7 @@ public class Heap {
     /*
     * Builds in-place min-heap of all records
     */
-    public void build() {
+    private void build() {
         
         // Auto-include the first record
         // And, bubble-up records from position one to last
@@ -114,7 +114,7 @@ public class Heap {
     /*
     * Bubbles up the LAST record to maintain min-heap structure.
     */
-    public void bubbleUp() {
+    private void bubbleUp() {
         
         // Just return if the heap is empty or has just one record
         if (last <= 0) {
@@ -146,7 +146,7 @@ public class Heap {
     /*
     * Bubbles down the TOP record to maintain min-heap structure.
     */
-    public void bubbleDown() {
+    private void bubbleDown() {
         
         // Just return if the heap is empty or has just one record
         if (last <= 0) {
@@ -185,7 +185,7 @@ public class Heap {
             }
             
             // Compare with smaller child
-            if (val < smaller_val) {
+            if (val <= smaller_val) {
                 // Smaller than children; we are done
                 break;
             }

@@ -41,7 +41,7 @@ public class HeapTest extends TestCase {
         Record topcheck = testHeap.top();
         assertEquals(testHeap.top(), topcheck);
         testHeap.delete();
-        testHeap.bubbleDown();
+        //testHeap.bubbleDown();
     }
     
     /**
