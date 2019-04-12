@@ -27,42 +27,43 @@ public class Externalsort {
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public static void main(String[] args) 
+        throws FileNotFoundException, IOException {
         
         // Used for processing; for heap and later for multi-way merge
-        byte[] processing_buf = new byte[8 * BLOCK_SIZE];
+        byte[] processingBuf = new byte[8 * BLOCK_SIZE];
         
         // Used for buffered reading of the input file and later the runfile(s)
-        byte[] in_buf = new byte[BLOCK_SIZE];
+        byte[] inBuf = new byte[BLOCK_SIZE];
         
         // Used for buffered writing of the runfile(s) and later the output file
-        byte[] out_buf = new byte[BLOCK_SIZE];
+        byte[] outBuf = new byte[BLOCK_SIZE];
         
         // Process command-line arguments; just one (the input file)
-        String input_file = args[0];
+        String inFile = args[0];
         
         // Setup runfile names; two runfiles are sufficient
-        String[] run_files = new String[] {
-            input_file + ".run1",
-            input_file + ".run2"
+        String[] runFiles = new String[] {
+            inFile + ".run1",
+            inFile + ".run2"
         };
         
         // Open inputfile
-        RecordReader reader = new RecordReader(input_file);
+        RecordReader reader = new RecordReader(inFile);
         
         // Initialize the reader with processing_buf, and fill it with records
-        reader.set(processing_buf);
+        reader.set(processingBuf);
         reader.read();
         
         // Re-initialize the reader; now with in_buf
-        reader.set(in_buf);
+        reader.set(inBuf);
         
         // Initialize a min-heap with the filled processing_buf
-        Heap heap = new Heap(processing_buf);
+        Heap heap = new Heap(processingBuf);
         
         // Create the the writer with out_buf, and open the output runfile
-        RecordWriter writer = new RecordWriter(out_buf);
-        writer.open(run_files[0]);
+        RecordWriter writer = new RecordWriter(outBuf);
+        writer.open(runFiles[0]);
         
         while (true) {
             
@@ -82,7 +83,8 @@ public class Externalsort {
                 // Push the input record to the heap
                 heap.push(rec);
                 //count++;
-            } else {
+            } 
+            else {
                 // No more input records; delete the top record from the heap
                 heap.delete();
             }
@@ -95,7 +97,7 @@ public class Externalsort {
         reader.close();
         
         // Obtain the list of runs created by min-heap sorting
-        RunList run_list = heap.getRunList();
+        RunList runList = heap.getRunList();
         
         //System.out.println("Record Count: " + count);
         //for (Run r : run_list) {
@@ -103,33 +105,33 @@ public class Externalsort {
         //}
         
         // Setup in/out for the merge; run_files[0] is the input to start with
-        String in_file = run_files[0];
-        String out_file = run_files[1];
+        String inFileStr = runFiles[0];
+        String outFileStr = runFiles[1];
         
         // Perform multi-pass multi-way merge
-        MultiwayMerge merge = new MultiwayMerge(processing_buf, out_buf);
+        MultiwayMerge merge = new MultiwayMerge(processingBuf, outBuf);
         while (true) {
             
             // If this is the last pass:
             // (a) write the sorted output to inputfile itself, and
             // (b) turn on printing sample output records.
-            if (run_list.size() <= 8) {
-                out_file = input_file;
+            if (runList.size() <= 8) {
+                outFileStr = inFile;
                 merge.printSampleRecords(true);
             }
             
             // Perform one complete pass of merging the runs
-            run_list = merge.perform(run_list, in_file, out_file);
+            runList = merge.perform(runList, inFileStr, outFileStr);
             
             // If the merged output contains just one run, then we are done.
-            if (run_list.size() == 1) {
+            if (runList.size() == 1) {
                 break;
             }
             
             // Continue to the next pass; swapping in_file and out_file names
-            String tmp = in_file;
-            in_file = out_file;
-            out_file = tmp;
+            String tmp = inFileStr;
+            inFileStr = outFileStr;
+            outFileStr = tmp;
         }
     }
 }
