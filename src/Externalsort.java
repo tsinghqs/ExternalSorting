@@ -1,31 +1,12 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-/**
- * The project's driver.
- * @author vpratha
- * @version 4.11.2019
- */
+
 public class Externalsort {
     
-    /**
-     * Constant: bytes per record
-     */
     public static final int RECORD_SIZE = 16;
-    /**
-     * Constant: bytes per block
-     */
     public static final int BLOCK_SIZE = 8192;
-    /**
-     * Constant: records per block
-     */
     public static final int RECORDS_PER_BLOCK = BLOCK_SIZE / RECORD_SIZE;
 
-    /**
-     * Project's main method; processes I/O.
-     * @param args the input file name
-     * @throws FileNotFoundException
-     * @throws IOException
-     */
     public static void main(String[] args) throws FileNotFoundException, IOException {
         
         // Used for processing; for heap and later for multi-way merge
@@ -51,9 +32,7 @@ public class Externalsort {
         
         // Initialize the reader with processing_buf, and fill it with records
         reader.set(processing_buf);
-        
-        // Variable count to make sure # of records read is correct
-        // int count = reader.read();
+        int count = reader.read();
         
         // Re-initialize the reader; now with in_buf
         reader.set(in_buf);
@@ -82,9 +61,7 @@ public class Externalsort {
             if (rec != null) {
                 // Push the input record to the heap
                 heap.push(rec);
-                
-                // increment count of records
-                // count++;
+                //count++;
             } else {
                 // No more input records; delete the top record from the heap
                 heap.delete();
@@ -100,13 +77,10 @@ public class Externalsort {
         // Obtain the list of runs created by min-heap sorting
         RunList run_list = heap.getRunList();
         
-        // Print record count
         //System.out.println("Record Count: " + count);
-        
-        // Print data for each run
-        for (Run r : run_list) {
-             System.out.println(r.getOffset() + ": " + r.getCount());
-        }
+        //for (Run r : run_list) {
+          //  System.out.println(r.getOffset() + ": " + r.getCount());
+        //}
         
         // Setup in/out for the merge; run_files[0] is the input to start with
         String in_file = run_files[0];

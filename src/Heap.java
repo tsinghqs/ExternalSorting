@@ -42,19 +42,11 @@ public class Heap {
         newRun();
     }
     
-    /**
-     * Changed to public for easier testing
-     * method to get a new run
-     */
     private void newRun() {
         run = new Run();
         run_list.add(run);
     }
     
-    /**
-     * method to get the runList
-     * @return RunList the runlist generated from new run
-     */
     public RunList getRunList() {
         return run_list;
     }
@@ -185,7 +177,7 @@ public class Heap {
             }
             
             // Compare with smaller child
-            if (val <= smaller_val) {
+            if (val < smaller_val) {
                 // Smaller than children; we are done
                 break;
             }

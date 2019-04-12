@@ -123,4 +123,3 @@ public class MultiwayMerge {
         return out_run;
     }
 }
-

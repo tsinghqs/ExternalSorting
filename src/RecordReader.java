@@ -104,4 +104,3 @@ public class RecordReader {
         return record;
     }
 }
-
