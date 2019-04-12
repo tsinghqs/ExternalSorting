@@ -35,24 +35,24 @@ public class HeapTest extends TestCase {
     public void testNewRun()
     {
         byte[] check2 = new byte[20];
-        for(int i = 0; i < 8; i++)
+        for (int i = 0; i < 8; i++)
         {
-            check2[i] = (byte)(i+1);
+            check2[i] = (byte)(i + 1);
         }
         byte[] check3 = new byte[20];
-        for(int i = 0; i < 8; i++)
+        for (int i = 0; i < 8; i++)
         {
-            check3[i] = (byte)(i+2);
+            check3[i] = (byte)(i + 2);
         }
-        for(int i = 0; i < 8; i++)
+        for (int i = 0; i < 8; i++)
         {
             check[i] = (byte)i;
         }
         testHeap = new Heap(check);
-        Record top_rec = new Record(check3);
-        Record bottom_rec = new Record(check2);
-        testHeap.push(bottom_rec);
-        testHeap.push(top_rec);
+        Record topRec = new Record(check3);
+        Record bottomRec = new Record(check2);
+        testHeap.push(bottomRec);
+        testHeap.push(topRec);
         Record topcheck = testHeap.top();
         assertEquals(testHeap.top(), topcheck);
         testHeap.bubbleDown();
@@ -64,7 +64,7 @@ public class HeapTest extends TestCase {
      */
     public void testBuildTop()
     {
-        for(int i = 0; i < 9; i++)
+        for (int i = 0; i < 9; i++)
         {
             check[i] = (byte)i;
         }
@@ -82,17 +82,17 @@ public class HeapTest extends TestCase {
      */
     public void testRecord() throws IOException
     {
-        for(int i = 0; i < 8; i++)
+        for (int i = 0; i < 8; i++)
         {
             check[i] = (byte)i;
         }
-        Record top_rec = new Record(check);
+        Record topRec = new Record(check);
         Record shift = new Record(check);
-        top_rec.moveTo(shift);
-        shift.copyContentTo(top_rec);
-        top_rec.swapContentWith(shift);
+        topRec.moveTo(shift);
+        shift.copyContentTo(topRec);
+        topRec.swapContentWith(shift);
         double val = shift.getValue();
-        String tostring = top_rec.toString();
+        topRec.toString();
         assertEquals(val, 0.0, 1.0);
         RecordWriter write = new RecordWriter(check);
         String in = "sampleInput16b.bin.run1";
@@ -100,13 +100,13 @@ public class HeapTest extends TestCase {
         try {
             write.open(in);
         }
-        catch(FileNotFoundException e)
+        catch (FileNotFoundException e)
         {
             //generated catch block
             assertNotNull(e);
             assertTrue(e instanceof FileNotFoundException);
         }
-        boolean written = write.write(top_rec);
+        boolean written = write.write(topRec);
         assertTrue(written);
         boolean stream = write.writeToStream();
         assertTrue(stream);
