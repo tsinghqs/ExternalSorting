@@ -7,7 +7,7 @@ import student.TestCase;
  */
 public class RecordReaderTest extends TestCase{
     private byte[] check = new byte[20];
-    private String filename = "/Users/tsingh/eclipse-workspace/ExternalSorting/src/sampleInput16b.bin";
+    private String filename = "/sampleInput16b.bin";
     private RecordReader read;
     
     /**
