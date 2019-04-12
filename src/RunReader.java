@@ -43,7 +43,7 @@ public class RunReader {
     * Returns the number of records read.
     * Returns -1 if there is an error in reading.
     */
-    private int read() {
+    public int read() {
         
         // Remaining records to be read in this run
         int records_outstanding = run.getCount() - records_read;
