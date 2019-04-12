@@ -1,7 +1,6 @@
 /*
 * Implements a min-heap of records
 */
-
 public class Heap {
     
     byte[] buf;// Buffer to store array of records for min-heap
@@ -21,6 +20,10 @@ public class Heap {
     private Record right_rec;   // Used in bubbleDown()
     private Record last_rec;    // Used in push() and delete()
     
+    /**
+     * Constructor for heap
+     * @param buf byte array given
+     */
     public Heap(byte[] buf) {
         
         this.buf = buf;
@@ -42,19 +45,27 @@ public class Heap {
         newRun();
     }
     
-    private void newRun() {
+    /**
+     * New run method
+     */
+    public void newRun() {
         run = new Run();
         run_list.add(run);
     }
     
+    /**
+     * method to create a runList
+     * @return RunList the list of runs from adding new runs
+     */
     public RunList getRunList() {
         return run_list;
     }
     
     /*
     * Builds in-place min-heap of all records
+    * made public for testing
     */
-    private void build() {
+    public void build() {
         
         // Auto-include the first record
         // And, bubble-up records from position one to last
@@ -105,8 +116,9 @@ public class Heap {
     
     /*
     * Bubbles up the LAST record to maintain min-heap structure.
+    * made public for testing
     */
-    private void bubbleUp() {
+    public void bubbleUp() {
         
         // Just return if the heap is empty or has just one record
         if (last <= 0) {
@@ -137,8 +149,9 @@ public class Heap {
     
     /*
     * Bubbles down the TOP record to maintain min-heap structure.
+    * Made public for testing purposes
     */
-    private void bubbleDown() {
+    public void bubbleDown() {
         
         // Just return if the heap is empty or has just one record
         if (last <= 0) {
