@@ -3,63 +3,79 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
-/*
-* Represents a Record.
-*
-* Bound to a pre-allocated byte array during construction.  The bound array
-* cannot be changed.  Initially it points to the first record (at 0-offset) of
-* the array.  The record can be moved to any offset using moveTo(int). It can
-* also be moved to the same offset as another record using moveTo(Record).  
-*
-* The record's content is the segment of the byte array that starts at
-* the offset and has the length equal to the size of the record in bytes.
-* Record can copy its content to or swap content with another record.
-*
-* getValue() returns the key-value of the record.  toString() returns the String
-* representation of both ID and key-value in the appropriate format.  getValue()
-* and toString() are computationally intensive; use them with care.
-*/
-
+/**
+ * Represents a Record.
+ *
+ * Bound to a pre-allocated byte array during construction. The bound array
+ * cannot be changed.  Initially it points to the first record (at 0-offset) of
+ * the array.  The record can be moved to any offset using moveTo(int). It can
+ * also be moved to the same offset as another record using moveTo(Record).  
+ *
+ * The record's content is the segment of the byte array that starts at
+ * the offset and has the length equal to the size of the record in bytes.
+ * Record can copy its content to or swap content with another record.
+ *
+ * getValue() returns the key-value of the record.  toString() returns the String
+ * representation of both ID and key-value in the appropriate format.
+ * 
+ * @author vpratha
+ * @version 4.11.2019
+ */
 public class Record {
     
+    /**
+     * Stores the bytes of the record.
+     */
     private byte[] buf;
+    /**
+     * Stores the offset of the record.
+     */
     private int offset;
     
-    /*
-    * A record is permanently bound to a byte array; supply it in constructor.
-    * buf - the byte array to bind to. The byte array must be pre-allocated.
-    */
+    /**
+     * Record's constructor; binds the given pre-allocated
+     * byte array to this record.
+     * @param buf the byte array to bind to
+     */
     public Record(byte[] buf) {
         this.buf = buf;
     }
     
-    /*
-    * Moves the record to the specified offset (measured in bytes)
-    */
+    /**
+     * Moves the record to the specified offset.
+     * @param offset the offset measured in bytes
+     */
     public void moveTo(int offset) {
         this.offset = offset;
     }
     
-    /*
-    * Moves the record to the same offset as the other
-    */
+    /**
+     * Moves the record to the same offset as other.
+     * @param other the other Record
+     */
     public void moveTo(Record other) {
         this.offset = other.offset;
     }
     
-    /*
-    * Copies the content to the another record
-    */
+    /**
+     * Copies buffer content to other.
+     * @param other the other Record
+     */
     public void copyContentTo(Record other) {
         for  (int i = 0; i < Externalsort.RECORD_SIZE; i++) {
             other.buf[other.offset + i] = this.buf[this.offset + i];
         }
     }
     
-    /*
-    * Swaps the content with another Record
-    */
+    /**
+     * Temporary Record object used for swapContentWith(Record other).
+     */
     private static Record temp = new Record(new byte[Externalsort.RECORD_SIZE]);
+    
+    /**
+     * Swaps buffer content between this and other.
+     * @param other the other Record
+     */
     public void swapContentWith(Record other) {
         // Perform a 3-way transfer among {this, other and temp}
         this.copyContentTo(temp);
@@ -67,10 +83,10 @@ public class Record {
         temp.copyContentTo(other);
     }
     
-    /*
-    * Returns double value of the key
-    * Returns NaN, for any error.
-    */
+    /**
+     * Returns double value of this record's key.
+     * @return the key, or NaN for errors
+     */
     public double getValue() {
         DataInputStream dis = new DataInputStream(new ByteArrayInputStream(
             buf, offset + 8, 8));
@@ -81,10 +97,15 @@ public class Record {
         }
     }
     
-    /*
-    * Returns a stirng containing the formatted id and value
-    */
+    /**
+     * DecimalFormat used in toString().
+     */
     private DecimalFormat formatter = new DecimalFormat("0.################E00");
+    
+    /**
+     * Returns a string containing the formatted id and key.
+     * @return a string containing the formatted id and key
+     */
     public String toString() {
         long id = -1;
         double value = Double.NaN;

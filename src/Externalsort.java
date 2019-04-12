@@ -1,12 +1,32 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * The project's driver.
+ * @author vpratha
+ * @version 4.11.2019
+ */
 public class Externalsort {
     
+    /**
+     * Constant: bytes per record
+     */
     public static final int RECORD_SIZE = 16;
+    /**
+     * Constant: bytes per block
+     */
     public static final int BLOCK_SIZE = 8192;
+    /**
+     * Constant: records per block
+     */
     public static final int RECORDS_PER_BLOCK = BLOCK_SIZE / RECORD_SIZE;
 
+    /**
+     * Project's main method; processes I/O.
+     * @param args the input file name
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public static void main(String[] args) throws FileNotFoundException, IOException {
         
         // Used for processing; for heap and later for multi-way merge
@@ -32,7 +52,7 @@ public class Externalsort {
         
         // Initialize the reader with processing_buf, and fill it with records
         reader.set(processing_buf);
-        int count = reader.read();
+        reader.read();
         
         // Re-initialize the reader; now with in_buf
         reader.set(in_buf);
