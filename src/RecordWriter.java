@@ -74,7 +74,7 @@ public class RecordWriter {
     * Returns true if successful.
     * Returns false if there is an error in writing.
     */
-    private boolean writeToStream() {
+    public boolean writeToStream() {
         
         // Write bytes based on number of output records (count)
         try {
