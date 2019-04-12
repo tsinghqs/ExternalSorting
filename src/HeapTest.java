@@ -7,7 +7,10 @@ import student.TestCase;
  * @version 2019
  */
 public class HeapTest extends TestCase {
-    byte[] check = new byte[20];
+    /**
+     * check field
+     */
+    private byte[] check = new byte[20];
     /**
      * @field Heap the test heap
      */
@@ -18,12 +21,12 @@ public class HeapTest extends TestCase {
      */
     public void testConstructor()
     {
-        for(int i = 0; i < 9; i++)
+        for (int i = 0; i < 9; i++)
         {
             check[i] = (byte)i;
         }
         testHeap = new Heap(check);
-        assertFalse(false);
+        assertNotSame(check, testHeap);
     }
     
     /**

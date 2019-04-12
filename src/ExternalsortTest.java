@@ -18,7 +18,7 @@ public class ExternalsortTest extends TestCase {
         try {
             Externalsort.main(in);
         }
-        catch(FileNotFoundException e)
+        catch (FileNotFoundException e)
         {
             //generated catch block
             assertNotNull(e);
