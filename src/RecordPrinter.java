@@ -1,14 +1,22 @@
-/*
-* Prints Records to standard output; maximum of 5 recods on each line.
-*/
+
+/**
+ * Represents record printing process.
+ * @author vpratha
+ * @version 4.11.2019
+ */
 public class RecordPrinter {
     
+    /**
+     * count field
+     */
     private static int count = 0; // count of records written on current line
     
-    /*
-    * Prints the given record to the standard output.
-    * Ensures that a maximum of 5 records are printed on each line.
-    */
+    /**
+     * Prints given record to stdout;
+     * ensures a max of 5 records are printed
+     * on each line
+     * @param rec the record
+     */
     public static void print(Record rec) {
         
         // If 5 records are written on current line, go to next line and reset
@@ -28,10 +36,10 @@ public class RecordPrinter {
         count++;
     }
     
-    /*
-    * Completes the the current line of print, if it is in progress.
-    * Completing the line involves emitting a newline and resetting the counter.
-    */
+    /**
+     * Completes current line of print
+     * if it is in progress.
+     */
     public static void close() {
         if (count != 0) {
             System.out.println();

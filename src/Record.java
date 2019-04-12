@@ -15,7 +15,8 @@ import java.text.DecimalFormat;
  * the offset and has the length equal to the size of the record in bytes.
  * Record can copy its content to or swap content with another record.
  *
- * getValue() returns the key-value of the record.  toString() returns the String
+ * getValue() returns the key-value of the record.  
+ * toString() returns the String
  * representation of both ID and key-value in the appropriate format.
  * 
  * @author vpratha
@@ -37,16 +38,16 @@ public class Record {
      * byte array to this record.
      * @param buf the byte array to bind to
      */
-    public Record(byte[] buf) {
-        this.buf = buf;
+    public Record(byte[] buffer) {
+        buf = buffer;
     }
     
     /**
      * Moves the record to the specified offset.
      * @param offset the offset measured in bytes
      */
-    public void moveTo(int offset) {
-        this.offset = offset;
+    public void moveTo(int off) {
+        offset = off;
     }
     
     /**
@@ -92,7 +93,8 @@ public class Record {
             buf, offset + 8, 8));
         try {
             return dis.readDouble();
-        } catch (IOException ex) {
+        } 
+        catch (IOException ex) {
             return Double.NaN;
         }
     }
@@ -100,7 +102,8 @@ public class Record {
     /**
      * DecimalFormat used in toString().
      */
-    private DecimalFormat formatter = new DecimalFormat("0.################E00");
+    private DecimalFormat formatter = 
+        new DecimalFormat("0.################E00");
     
     /**
      * Returns a string containing the formatted id and key.
@@ -114,7 +117,11 @@ public class Record {
         try {
             id = dis.readLong();
             value = dis.readDouble();
-        } catch (IOException ex) {
+        } 
+        catch (IOException ex) {
+            /**
+             * Empty on purpose
+             */
         }
         
         // return String.format("%d %E", id, value);

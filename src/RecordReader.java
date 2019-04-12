@@ -4,39 +4,70 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Represents the process of reading
+ * records.
+ * @author vpratha
+ * @version 2019
+ */
 public class RecordReader {
     
-    private InputStream stream; // Stream to read records from
-    private byte[] buf; // Buffer to store input records
-    private int count;  // Number of records in the buffer
-    private int index;  // Index of the latest record returned by getNext()
-    private Record record; // Record to be returned by getNext()
+    /**
+     * Stream to read records from
+     */
+    private InputStream stream;
+    /**
+     * Buffer to store input records
+     */
+    private byte[] buf; 
+    /**
+     * Number of records in the buffer
+     */
+    private int count;  
+    /**
+     * Index of the latest record returned by getNext()
+     */
+    private int index; 
+    /**
+     * Record to be returned by getNext()
+     */
+    private Record record;
     
+    /**
+     * RecordReader's constructor.
+     * @param file the filename
+     * @throws FileNotFoundException
+     */
     public RecordReader(String file) throws FileNotFoundException {
         stream = new BufferedInputStream(new FileInputStream(file));
     }
     
+    /**
+     * Closes stream
+     * @throws IOException
+     */
     public void close() throws IOException {
         stream.close();
         stream = null;
     }
     
-    /*
-    * Sets the buffer to be used for input records
-    */
-    public void set(byte[] buf) {
-        this.buf = buf;
-        this.count = 0;
-        this.index = -1;
-        this.record = new Record(buf);
+    /**
+     * Sets the buffer to be used for input records. 
+     * @param buf the buffer
+     */
+    public void set(byte[] buffer) {
+        buf = buffer;
+        count = 0;
+        index = -1;
+        record = new Record(buf);
     }
     
-    /*
-    * Reads bytes from the input stream and fills the record store.
-    * Returns the number of records read.
-    * Returns -1 if there is an error in reading.
-    * NOTE: For performance reasons, supply a BufferedInputStream
-    */
+    /**
+     * Reads bytes from the input stream and fills the record store.
+     * Returns the number of records read.
+     * Returns -1 if there is an error in reading.
+     * @return num of records read
+     */
     public int read() {
         
         if (stream == null) {
@@ -47,37 +78,42 @@ public class RecordReader {
         count = 0;
         index = -1;
         
-        int total_read = 0;
-        while (total_read < buf.length) {
-            int to_be_read = buf.length - total_read;
-            int curr_read;
+        int totalRead = 0;
+        while (totalRead < buf.length) {
+            int toBeRead = buf.length - totalRead;
+            int currRead;
             try {
-                curr_read = stream.read(buf, total_read, to_be_read);
-            } catch (IOException ex) {
+                currRead = stream.read(buf, totalRead, toBeRead);
+            } 
+            catch (IOException ex) {
                 return -1;
             }
-            if (curr_read == -1) {
+            if (currRead == -1) {
                 // EOF reached; stop reading
                 break;
             }
-            total_read += curr_read;
+            totalRead += currRead;
         }
         
-        count = total_read / Externalsort.RECORD_SIZE;
+        count = totalRead / Externalsort.RECORD_SIZE;
         return count;
     }
     
-    /*
-    * Serves the next record in the record store.
-    * If there are no records to serve, then reads from the stream and
-    * replenishes the record store before serving a record.
-    *
-    * Returns null if there are no records to serve
-    */
-    boolean no_more_records = false;
+    /**
+     * noMoreRecords field
+     */
+    private boolean noMoreRecords = false;
+    
+    /**
+     * Serves the next record.
+     * If there are no records, then reads from the stream and
+     * replenishes the record store first.
+     * @return the next record or null if there
+     *          are no records
+     */
     public Record getNext() {
         
-        if (stream == null || no_more_records) {
+        if (stream == null || noMoreRecords) {
             return null;
         }
         
@@ -91,7 +127,7 @@ public class RecordReader {
             
             // If no more records in the run, return null
             if (count == 0) {
-                no_more_records = true;
+                noMoreRecords = true;
                 return null;
             }
         }
