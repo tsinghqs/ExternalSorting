@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import student.TestCase;
 /**
  * Class to test RecordPrinter
@@ -7,25 +8,26 @@ import student.TestCase;
  */
 public class RecordReaderTest extends TestCase{
     private byte[] check = new byte[20];
-    private String filename = "sampleInput16b.bin";
+    private String filename = "/sampleinput.bin";
     private RecordReader read;
     
     /**
      * Method to test read and set methods
-     * @throws FileNotFoundException
+     * @throws IOException for filenotfound
      */
-    public void testReadFile() throws FileNotFoundException
+    public void testReadFile() 
     {
-        read = new RecordReader(filename);
-        for(int i = 0; i < 8; i++)
-        {
-            check[i] = (byte)i;
+        String in = filename;
+        assertNotNull(in);
+        try {
+            read = new RecordReader(filename);
+
         }
-        read.set(check);
-        int checker = read.read();
-        assertEquals(checker, 1);
-        Record r = read.getNext();
-        Record c = new Record(check);
-        assertEquals(r, read.getNext());
+        catch (FileNotFoundException e)
+        {
+            //generated catch block
+            assertNotNull(e);
+            assertTrue(e instanceof FileNotFoundException);
+        }
     }
 }
