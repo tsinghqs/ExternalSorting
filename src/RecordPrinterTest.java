@@ -19,8 +19,15 @@ public class RecordPrinterTest extends TestCase {
             check[i] = (byte)i;
         }
         Record topRec = new Record(check);
+        Record bottom = new Record(check);
         prints.print(topRec);
+        prints.print(bottom);
+        prints.print(bottom);
+        prints.print(bottom);
+        prints.print(bottom);
+        prints.print(bottom);
         prints.close();
+        
         assertNotSame(topRec, check);
     }
     
