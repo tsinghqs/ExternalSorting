@@ -216,14 +216,25 @@ public class Heap {
             double smallerVal = smallerRec.getValue();
             
             int rightIndex = index * 2 + 2;  // Right child index
-            if (rightIndex > last) {
-                // No right child; keep the left child as the smaller child
-            } 
-            else {
+//            if (rightIndex > last) {
+//                // No right child; keep the left child as the smaller child
+//            } 
+//            else {
+//                rightRec.moveTo(rightIndex * Externalsort.RECORD_SIZE);
+//                double rightValue = rightRec.getValue();
+//                if (rightValue < smallerVal) {
+//                    
+//                    // Mark the right child as the smaller child
+//                    smallerRec.moveTo(rightRec);
+//                    smallerVal = rightValue;
+//                    smallerIndex = rightIndex;
+//                }
+//            }
+            if (rightIndex <= last) {
                 rightRec.moveTo(rightIndex * Externalsort.RECORD_SIZE);
                 double rightValue = rightRec.getValue();
                 if (rightValue < smallerVal) {
-                    
+                  
                     // Mark the right child as the smaller child
                     smallerRec.moveTo(rightRec);
                     smallerVal = rightValue;

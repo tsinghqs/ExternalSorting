@@ -6,10 +6,8 @@ import student.TestCase;
  * @author tsingh
  * @version 2019
  */
-public class RecordReaderTest extends TestCase{
-    private byte[] check = new byte[20];
-    private String filename = "/sampleinput.bin";
-    private RecordReader read;
+public class RecordReaderTest extends TestCase {
+    
     
     /**
      * Method to test read and set methods
@@ -17,6 +15,8 @@ public class RecordReaderTest extends TestCase{
      */
     public void testReadFile() 
     {
+        RecordReader read = null;
+        String filename = "/sampleinput.bin";
         String in = filename;
         assertNotNull(in);
         try {
@@ -29,5 +29,6 @@ public class RecordReaderTest extends TestCase{
             assertNotNull(e);
             assertTrue(e instanceof FileNotFoundException);
         }
+        assertTrue(read instanceof RecordReader);
     }
 }

@@ -6,27 +6,25 @@ import student.TestCase;
  */
 public class RecordTest extends TestCase {
     
-    /**
-     * fields for testing
-     */
-    byte[] check = new byte[20];
+
     
     /**
      * method to check our record class
      */
     public void testRecord()
     {
-        for(int i = 0; i < 8; i++)
+        byte[] check = new byte[20];
+        for (int i = 0; i < 8; i++)
         {
             check[i] = (byte)i;
         }
-        Record top_rec = new Record(check);
+        Record topRec = new Record(check);
         Record shift = new Record(check);
-        top_rec.moveTo(shift);
-        shift.copyContentTo(top_rec);
-        top_rec.swapContentWith(shift);
+        topRec.moveTo(shift);
+        shift.copyContentTo(topRec);
+        topRec.swapContentWith(shift);
         double val = shift.getValue();
-        String tostring = top_rec.toString();
+        topRec.toString();
         assertEquals(val, 0.0, 1.0);
     }
 

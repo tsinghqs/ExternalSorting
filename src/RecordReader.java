@@ -53,7 +53,7 @@ public class RecordReader {
     
     /**
      * Sets the buffer to be used for input records. 
-     * @param buf the buffer
+     * @param buffer the buffer
      */
     public void set(byte[] buffer) {
         buf = buffer;

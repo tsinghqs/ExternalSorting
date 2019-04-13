@@ -36,7 +36,7 @@ public class Record {
     /**
      * Record's constructor; binds the given pre-allocated
      * byte array to this record.
-     * @param buf the byte array to bind to
+     * @param buffer the byte array to bind to
      */
     public Record(byte[] buffer) {
         buf = buffer;
@@ -44,7 +44,7 @@ public class Record {
     
     /**
      * Moves the record to the specified offset.
-     * @param offset the offset measured in bytes
+     * @param off the offset measured in bytes
      */
     public void moveTo(int off) {
         offset = off;

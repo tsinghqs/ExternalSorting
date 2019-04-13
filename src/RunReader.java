@@ -57,8 +57,8 @@ public class RunReader {
     
     /**
      * bind method
-     * @src the file
-     * @r the run
+     * @param src the file
+     * @param r the run
      */
     public void bind(RandomAccessFile src, Run r) {
         this.source = src;

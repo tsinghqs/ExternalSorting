@@ -7,15 +7,13 @@ import student.TestCase;
 public class RunReaderTest extends TestCase {
 
     /**
-     * Test reference.
+     * tests runreader
      */
-    private ByteStore bs;
-    private Run run;
-    
     public void testRunReader()
     {
+        ByteStore bs;
         byte[] buf = new byte[10];
-        for(int i = 0; i < 9; i++)
+        for (int i = 0; i < 9; i++)
         {
             buf[i] = (byte)i;
         }
@@ -23,8 +21,7 @@ public class RunReaderTest extends TestCase {
         RunReader read = new RunReader(bs);
         //int check = read.read();
         //assertEquals(check, 1);
-        Record firstRec = new Record(buf);
-        Record curr = read.getCurr();
+        read.getCurr();
         double val = read.getValue();
         assertEquals(0.0, val, 1.0);
         

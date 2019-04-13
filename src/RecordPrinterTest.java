@@ -5,20 +5,14 @@ import student.TestCase;
  * @version 2019
  */
 public class RecordPrinterTest extends TestCase {
-    /**
-     * check field
-     */
-    private byte[] check = new byte[20];
-    /**
-     * prints field
-     */
-    private RecordPrinter prints;
     
     /**
      * method to test a new run
      */
     public void testRecordPrinter()
     {
+        byte[] check = new byte[20];
+        RecordPrinter prints;
         prints = new RecordPrinter();
         for (int i = 0; i < 8; i++)
         {

@@ -8,7 +8,7 @@ import java.io.OutputStream;
  * File to write records
  * 
  * @author tsingh
- *
+ * @version 2019
  */
 public class RecordWriter {
 
@@ -23,7 +23,7 @@ public class RecordWriter {
     private OutputStream stream; // Stream to write records to
 
 
-    /*
+    /**
      * Initializes the record store
      * 
      * @param buf the byte array
@@ -35,7 +35,7 @@ public class RecordWriter {
     }
 
 
-    /*
+    /**
      * Attaches this writer to the given output file destination.
      * 
      * @param file the file taken in
@@ -46,7 +46,7 @@ public class RecordWriter {
     }
 
 
-    /*
+    /**
      * Detaches this writer from the output file destination.
      * Flushes any buffered output records and closes the stream.
      */
@@ -57,7 +57,7 @@ public class RecordWriter {
     }
 
 
-    /*
+    /**
      * Appends the given record to the record store.
      * If the record store is already full, then the records in the record store
      * are written to the output stream and the record store is reset to make
@@ -66,6 +66,7 @@ public class RecordWriter {
      * Returns true if the record is successfully buffered, false otherwise.
      * 
      * @param r the record to be written
+     * @return status of buffered record
      */
     public boolean write(Record r) {
 
@@ -89,7 +90,7 @@ public class RecordWriter {
     }
 
 
-    /*
+    /**
      * Write bytes from buf to the output stream and resets the record store.
      * Returns true if successful.
      * Returns false if there is an error in writing.
